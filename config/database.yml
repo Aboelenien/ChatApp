@@ -14,8 +14,9 @@ default: &default
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
-  password:
+  password: <%= ENV.fetch("MYSQL_ROOT_PASSWORD") { 'root' } %>
   socket: /var/run/mysqld/mysqld.sock
+  host: db
 
 development:
   <<: *default
@@ -51,4 +52,4 @@ production:
   <<: *default
   database: ChatApp_production
   username: ChatApp
-  password: <%= ENV['CHATAPP_DATABASE_PASSWORD'] %>
+  password: <%= ENV.fetch("MYSQL_ROOT_PASSWORD") { 'root' } %>

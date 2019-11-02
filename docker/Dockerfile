@@ -1,4 +1,4 @@
-FROM ruby:2.6
+FROM ruby:2.5
 
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 RUN apt-get update &&  apt-get install -y \
@@ -21,10 +21,9 @@ ENV PATH $GEM_HOME/bin:$GEM_HOME/gems/bin:$PATH
 COPY Gemfile Gemfile.lock ./
 
 
-RUN gem install bundler \
-    && bundle install --jobs 20 --retry 5 --without development test
-RUN npm install -g yarn
+RUN gem install bundler && bundle install
 
 COPY . ./
 
+RUN chmod +x $RAILS_ROOT/docker/entrypoint.sh
 ENTRYPOINT $RAILS_ROOT/docker/entrypoint.sh
