@@ -33,15 +33,10 @@ class Api::V1::ApplicationsController < Api::V1::ApiController
     end
   end
 
-  # DELETE /applications/1
-  def destroy
-    @application.destroy
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_application
-      @application = Application.find(params[:id])
+      @application = Application.find_by(token: params[:token])
     end
 
     # Only allow a trusted parameter "white list" through.

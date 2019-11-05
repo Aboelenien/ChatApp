@@ -1,5 +1,6 @@
 class Application < ApplicationRecord
   before_create :set_access_token
+  has_many :chats, dependent: :destroy
 
   private
 
