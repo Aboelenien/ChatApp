@@ -13,6 +13,7 @@ class Api::V1::ApplicationChatsController < Api::V1::ApiController
   end
 
   def create
+    retries ||= 3
     @chat = @application.chats.build
     @chat.number = @application.chats.count + 1
     @application.chats_count = @chat.number
@@ -23,6 +24,9 @@ class Api::V1::ApplicationChatsController < Api::V1::ApiController
     else
       render json: @chat.errors, status: :unprocessable_entity
     end
+  rescue ActiveRecord::RecordNotUnique
+    retry unless (retries-=1).zero?
+    raise
   end
 
 
