@@ -15,7 +15,11 @@ class Api::V1::ChatMessagesController < Api::V1::ApiController
 
   def show
     @message = @chat.messages.find_by(number: params[:message_number])
-    render json: @message
+    if @message
+      render json: @message
+    else
+      raise ActiveRecord::RecordNotFound
+    end
   end
 
   def create
@@ -45,7 +49,13 @@ class Api::V1::ChatMessagesController < Api::V1::ApiController
     # Use callbacks to share common setup or constraints between actions.
     def set_chat
       @application = Application.find_by(token: params[:token])
+      if @application.nil?
+        raise ActiveRecord::RecordNotFound
+      end
       @chat = Chat.find_by(application: @application, number: params[:number])
+      if @chat.nil?
+        raise ActiveRecord::RecordNotFound
+      end
     end
 
     def message_params

@@ -10,7 +10,11 @@ class Api::V1::ApplicationsController < Api::V1::ApiController
 
   # GET /applications/1
   def show
-    render json: @application
+    if @application
+      render json: @application
+    else
+      raise ActiveRecord::RecordNotFound
+    end
   end
 
   # POST /applications
