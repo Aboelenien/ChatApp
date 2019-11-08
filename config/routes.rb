@@ -9,6 +9,9 @@ Rails.application.routes.draw do
           get '/:token/chats', to: 'application_chats#index'
           get '/:token/chats/:number', to: 'application_chats#show'
           post '/:token/chats', to: 'application_chats#create'
+          get '/:token/chats/:number/messages', to: 'chat_messages#index'
+          post '/:token/chats/:number/messages', to: 'chat_messages#create'
+          get '/:token/chats/:number/messages/:number', to: 'chat_messages#show'
         end
       end
     end
