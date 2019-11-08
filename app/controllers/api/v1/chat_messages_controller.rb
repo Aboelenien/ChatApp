@@ -3,8 +3,12 @@ class Api::V1::ChatMessagesController < Api::V1::ApiController
 
   def index
     @messages = @chat.messages.all
-    @messages = @chat.messages.search(params[:query]) if params[:query].present?
-    @messages = @messages.map {|message| { number: message.number, message: message.message}}
+    if params[:query].present?
+      @messages = @chat.messages.search(params[:query])
+      @messages = @messages.map {|message| { number: message.number, message: message.message} if message.chat_id == @chat.id }.compact
+      @messages = @messages.to_json
+    end
+
     render json: @messages
   end
 

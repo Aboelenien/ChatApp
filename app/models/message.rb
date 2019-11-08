@@ -8,11 +8,12 @@ class Message < ApplicationRecord
   settings do
      mappings dynamic: false do
        indexes :message, type: :text
+       indexes :chat_id, type: :bigint
      end
   end
 
   def as_indexed_json(options={})
-     self.as_json(root: false, only: [:number, :message])
+     self.as_json(root: false, only: [:number, :message, :chat_id])
   end
 
   def self.serach(query)

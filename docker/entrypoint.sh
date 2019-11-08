@@ -1,5 +1,5 @@
 #! /bin/bash
-rails db:create
+rails db:create db:migrate
 
 rm tmp/pids/server.pid
 
