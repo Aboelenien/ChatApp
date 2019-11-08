@@ -39,12 +39,12 @@ Getting chat with its number and application's token :
     * GET  /api/v1/applications/:token/chats/:number(.:format)
 
 Creating new Chat in an application:                         
-    POST /api/v1/applications/:token/chats(.:format)
+    * POST /api/v1/applications/:token/chats(.:format)
     --No data needed as an input, the chat is created in this application and a chat number will be assign by the system
       along with it. So here the chat is identified by the application token and its chat number    
 
 Getting all messages or searched messages using elasticsearch in an chat of application:
-    GET  /api/v1/applications/:token/chats/:number/messages(.:format)
+    * GET  /api/v1/applications/:token/chats/:number/messages(.:format)
     -- if ypu want to search for words in the messages of this chat
        add {query: 'hello'} to the request
 
