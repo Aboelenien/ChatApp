@@ -9,7 +9,7 @@ class Api::V1::ChatMessagesController < Api::V1::ApiController
 
 
   def show
-    @message = @chat.messages.find_by(number: params[:number])
+    @message = @chat.messages.find_by(number: params[:message_number])
     render json: @message
   end
 
@@ -25,6 +25,15 @@ class Api::V1::ChatMessagesController < Api::V1::ApiController
   rescue ActiveRecord::RecordNotUnique
     retry unless (retries-=1).zero?
     raise
+  end
+
+  def update
+    @message = @chat.messages.find_by(number: params[:message_number])
+    if @message.update(message_params)
+      render json: @message
+    else
+      render json: @message.errors, status: :unprocessable_entity
+    end
   end
 
   private
