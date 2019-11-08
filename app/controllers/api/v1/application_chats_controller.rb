@@ -16,11 +16,8 @@ class Api::V1::ApplicationChatsController < Api::V1::ApiController
     retries ||= 3
     @chat = @application.chats.build
     @chat.number = @application.chats.count + 1
-    @application.chats_count = @chat.number
     if @chat.save
-      if @application.save
-        render json: @chat, status: :created
-      end
+      render json: @chat, status: :created
     else
       render json: @chat.errors, status: :unprocessable_entity
     end

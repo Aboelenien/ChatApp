@@ -14,4 +14,8 @@ class Application < ApplicationRecord
       break token unless Application.where(token: token).exists?
     end
   end
+
+  def chats_count
+    self.chats_count = self.chats.count
+  end
 end
