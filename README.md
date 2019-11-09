@@ -13,11 +13,12 @@ Run this command to start the app
 Run sudo sysctl -w vm.max_map_count=262144 if this appears
 * [ max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144] ]
 
+To Test the controllers
 * Run docker-compose --project-name=ChatApp_development exec app  rspec spec/controllers
- To Test the controllers
 
-* Run docker-compose --project-name=ChatApp_development exec app  rspec spec/models
   To Test the models
+* Run docker-compose --project-name=ChatApp_development exec app  rspec spec/models
+
 
 
 
