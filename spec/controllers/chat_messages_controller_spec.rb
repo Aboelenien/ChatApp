@@ -18,6 +18,22 @@ RSpec.describe Api::V1::ChatMessagesController, type: :controller do
     end
   end
 
+  describe 'POST #create' do
+    context 'when creating message' do
+        before do
+          post :create, params: { token: application.token, number: chat.number, message:{message: 'message' }}
+        end
+        it 'returns success' do
+          expect(response).to(be_successful)
+        end
+        it 'changes database by 1' do
+          expect do
+            post :create, params: { token: application.token, number: chat.number,message:{message: 'message' }}
+          end.to change(Message, :count).by(1)
+        end
+    end
+  end
+
   describe 'GET #show' do
     context 'when chat is found' do
         before do
