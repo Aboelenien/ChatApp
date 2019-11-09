@@ -2,6 +2,8 @@ class Message < ApplicationRecord
   belongs_to :chat,  dependent: :destroy
   before_save :force_index
 
+  validates :message, presence: true
+
   include Elasticsearch::Model
   include Elasticsearch::Model::Callbacks
 
